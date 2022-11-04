@@ -1,0 +1,5 @@
+.idea/
+venv/
+Nobel_Laureates/stage[1-6]/__pycache__/
+zipper.sh
+Nobel_Laureates/Data/
