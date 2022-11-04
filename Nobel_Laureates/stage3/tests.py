@@ -24,7 +24,7 @@ class DateTest(StageTest):
 
         num_of_answers = len(reply.split('\n'))
         if num_of_answers != 2:
-            return CheckResult.wrong(f"Wrong number of answers. Expected 2, found {num_of_answers}")
+            return CheckResult.wrong(f"Wrong number of answers. Expected 2, found {num_of_answers}.")
 
         reply_1 = reply.split('\n')[0]
         index_reply_1_from = reply_1.find('[')

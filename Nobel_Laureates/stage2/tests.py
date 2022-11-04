@@ -19,14 +19,9 @@ class BirthplaceTest(StageTest):
         if reply.count('[') < 1 or reply.count(']') < 1:
             return CheckResult.wrong('Print the answer as a list')
 
-        num_of_answers = len(reply.split('\n'))
-        if num_of_answers != 1:
-            return CheckResult.wrong(f"Wrong number of answers. Expected 1, found {num_of_answers}")
-
-        reply_1 = reply.split('\n')[0]
-        index_reply_1_from = reply_1.find('[')
-        index_reply_1_to = reply_1.find(']')
-        list_country = reply_1[index_reply_1_from: index_reply_1_to + 1]
+        index_reply_from = reply.find('[')
+        index_reply_to = reply.find(']')
+        list_country = reply[index_reply_from: index_reply_to + 1]
 
         try:
             user_list = ast.literal_eval(list_country)
@@ -36,16 +31,19 @@ class BirthplaceTest(StageTest):
                                      f"int, float, list, dictionary")
 
         if not isinstance(user_list, list):
-            return CheckResult.wrong(f'Print 1st answer as a list')
+            return CheckResult.wrong(f'Print your answer as a Python list')
 
         if len(user_list) != len(answer):
-            return CheckResult.wrong(f'List on the 1st line should contain {len(answer)} values, '
-                                     f'found {len(user_list)}')
+            return CheckResult.wrong(f'List from the answer should contain {len(answer)} values, found {len(user_list)}')
 
-        for i in range(len(user_list)):
-            if answer[i] != user_list[i]:
-                return CheckResult.wrong(f"Seems like the answer supplied is not correct\n"
-                                         f"Check element {i} of your 1st answer list")
+        if set(user_list) != set(answer):
+            for value in answer:
+                if value not in user_list:
+                    return CheckResult.wrong(f"Seems like your answer is not correct: there is no {value} in the output list")
+            if len(set(user_list) - set(answer)) > 0:
+                return CheckResult.wrong(f"Seems like your answer is not correct.\n"
+                                         f"The following values are excessive: {list(set(user_list) - set(answer))}.")
+            return CheckResult.wrong("Seems like your answer is not correct")
 
         return CheckResult.correct()
 

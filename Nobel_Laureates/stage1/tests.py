@@ -28,10 +28,11 @@ class LoadTest(StageTest):
             return CheckResult.wrong("No output was printed")
 
         if reply.count('{') < 1 or reply.count('}') < 1:
-            return CheckResult.wrong('Print the second answer as a dictionary')
+            return CheckResult.wrong('Your answer should contain Python dictionary')
 
         if len(reply.split('\n')) != 2:
-            return CheckResult.wrong('The number of answers supplied does not equal 2')
+            return CheckResult.wrong('The number of answers supplied does not equal two.\n'
+                                     'Please follow the output format from the stage description.')
 
         reply_dup = reply.split('\n')[0]
         reply_index = reply.split('\n')[1]
@@ -43,18 +44,18 @@ class LoadTest(StageTest):
             reply_dup = ast.literal_eval(reply_dup)
             user_dict = ast.literal_eval(dict_index)
         except Exception as e:
-            return CheckResult.wrong(f"Seems that output is in wrong format.\n"
+            return CheckResult.wrong(f"Couldn't parse dictionary from your answer.\n"
                                      f"Make sure you use only the following Python structures in the output: string, "
-                                     f"int, float, list, dictionary")
+                                     f"int, float, bool, list, dictionary.")
 
         if not isinstance(reply_dup, bool):
-            return CheckResult.wrong('Print output 1 as a string')
+            return CheckResult.wrong('Print the result of objective # 3 as a string')
 
         if reply_dup != answer_dup:
-            return CheckResult.wrong(f"Answer 1 is not correct")
+            return CheckResult.wrong(f"Result of objective # 3 is not correct")
 
         if not isinstance(user_dict, dict):
-            return CheckResult.wrong('Print answer 2 as a dictionary')
+            return CheckResult.wrong('Print the second part of the answer as a Python dictionary')
 
         if len(answer_index.keys()) != len(user_dict.keys()):
             return CheckResult.wrong(
@@ -62,7 +63,7 @@ class LoadTest(StageTest):
 
         for key in answer_index.keys():
             if key not in user_dict.keys():
-                return CheckResult.wrong(f'Output should contain {key} as key')
+                return CheckResult.wrong(f'Output dictionary should contain {key} as a key.')
 
         for key in answer_index.keys():
             if len(answer_index[key].keys()) != len(user_dict[key].keys()):
@@ -73,7 +74,7 @@ class LoadTest(StageTest):
         for key in answer_index.keys():
             for key_inner in answer_index[key].keys():
                 if key not in user_dict.keys():
-                    return CheckResult.wrong(f'Output in column {key} should contain {key_inner} as key')
+                    return CheckResult.wrong(f'Output in column {key} should contain {key_inner} as a key')
 
         for key in user_dict.keys():
             curr_user_dict = user_dict[key]
