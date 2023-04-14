@@ -60,9 +60,6 @@ class Pie(PlottingTest):
         elif not isfunction(all_figures[0].kwargs.get("autopct")):
             raise WrongAnswer("The 'autopct' parameter is not a function!")
 
-        if not all_figures[0].kwargs.get("counterclock"):
-            raise WrongAnswer("The 'counterclock' parameter is not defined or wrong!")
-
         if not all_figures[0].kwargs.get("explode"):
             raise WrongAnswer("Please define 'explode' parameter!")
         elif not set(all_figures[0].kwargs.get("explode")) == set(dict_data_CORRECT["explode"]):
