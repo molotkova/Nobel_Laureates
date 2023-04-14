@@ -1,5 +1,10 @@
 from hstest import PlottingTest, WrongAnswer, dynamic_test, TestedProgram, CheckResult
 
+data_CORRECT = {
+    "categories": ['Chemistry', 'Economics', 'Literature', 'Peace',
+                   'Physics', 'Physiology or Medicine', 'All categories'],
+}
+
 
 class Box(PlottingTest):
     # hs-test-python is not able to test box plots properly yet
@@ -22,6 +27,15 @@ class Box(PlottingTest):
         if graph_type != "box":
             raise WrongAnswer(f"The type of the plot is wrong.\n"
                               f"The box plot is expected, found {graph_type} plot.")
+
+        if not all_figures[0].kwargs.get("labels"):
+            raise WrongAnswer("Please define labels!")
+        elif not set(all_figures[0].kwargs.get("labels")) == set(data_CORRECT['categories']):
+            raise WrongAnswer(
+                f"The labels for the 'categories' are wrong. They should be '{data_CORRECT['categories']}'!")
+
+        if not all_figures[0].kwargs.get("showmeans"):
+            raise WrongAnswer("The 'showmeans' parameter is not defined or wrong!")
 
         return CheckResult.correct()
 
