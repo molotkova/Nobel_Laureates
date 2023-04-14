@@ -38,15 +38,17 @@ if __name__ == '__main__':
     x_axis = np.arange(len(df['category'].unique()) - 1)
     y_axis = np.arange(0, 225, 25)
     plt.figure(figsize=(10, 10))
-    plt.bar(x_axis - 0.2, male_cat.values, width=0.4, label='Males')
-    plt.bar(x_axis + 0.2, female_cat.values, width=0.4, label='Females')
+    plt.bar(x_axis - 0.2, male_cat.values, width=0.4, label='Males', color="blue")
+    plt.bar(x_axis + 0.2, female_cat.values, width=0.4, label='Females', color="crimson")
     plt.xticks(x_axis, male_cat.index)
     plt.yticks(y_axis)
     plt.xlabel('Category', fontsize=14)
     plt.ylabel('Nobel Laureates Count', fontsize=14)
-    plt.title('The total count of male and female Nobel Prize winners in each category', fontsize=20)
+    plt.title('The total count of male and female Nobel Prize winners by categories', fontsize=20)
     plt.legend(['Males', 'Females'])
     plt.show()
+    # plt.savefig("plot_stage5.png")
+
 
 
 
