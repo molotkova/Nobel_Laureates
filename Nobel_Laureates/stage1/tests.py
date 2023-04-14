@@ -2,17 +2,31 @@ import ast
 from hstest import *
 from hstest.stage_test import List
 
-
 answer_dup = False
-answer_index = {'country': {0: 'Argentina', 1: '', 2: '', 3: 'Belgium', 4: 'Belgium', 5: 'Belgium', 6: 'Belgium',
-                        7: 'Belgium', 8: 'Belgium', 9: 'Belgium', 10: 'Belgium', 11: 'Belgium', 12: 'Belgium',
-                        13: '', 14: '', 15: '', 16: 'Denmark', 17: 'Denmark', 18: 'Denmark', 19: 'Denmark'},
-            'name': {0: 'César Milstein', 1: 'Ivo Andric *', 2: 'Vladimir Prelog *', 3: 'Auguste Beernaert',
-                     4: 'Maurice Maeterlinck', 5: 'Henri La Fontaine', 6: 'Jules Bordet', 7: 'Corneille Heymans',
-                     8: 'Georges Pire', 9: 'Albert Claude', 10: 'Christian de Duve', 11: 'Ilya Prigogine',
-                     12: 'François Englert', 13: 'Simon Kuznets *', 14: 'Menachem Begin *', 15: 'Shimon Peres *',
-                     16: 'Karl Adolph Gjellerup', 17: 'August Krogh', 18: 'Niels Bohr',
-                     19: 'Johannes Andreas Grib Fibiger'}}
+answer_index = {
+    'country': {
+        0: 'Argentina',
+        1: '',
+        2: '',
+        3: 'Belgium',
+        4: 'Belgium',
+        5: 'Belgium',
+        6: 'Belgium',
+        7: 'Belgium',
+        8: 'Belgium',
+        9: 'Belgium',
+        10: 'Belgium',
+        11: 'Belgium',
+        12: 'Belgium',
+        13: '',
+        14: '',
+        15: '', 16: 'Denmark', 17: 'Denmark', 18: 'Denmark', 19: 'Denmark'},
+    'name': {0: 'César Milstein', 1: 'Ivo Andric *', 2: 'Vladimir Prelog *', 3: 'Auguste Beernaert',
+             4: 'Maurice Maeterlinck', 5: 'Henri La Fontaine', 6: 'Jules Bordet', 7: 'Corneille Heymans',
+             8: 'Georges Pire', 9: 'Albert Claude', 10: 'Christian de Duve', 11: 'Ilya Prigogine',
+             12: 'François Englert', 13: 'Simon Kuznets *', 14: 'Menachem Begin *', 15: 'Shimon Peres *',
+             16: 'Karl Adolph Gjellerup', 17: 'August Krogh', 18: 'Niels Bohr',
+             19: 'Johannes Andreas Grib Fibiger'}}
 
 
 class LoadTest(StageTest):

@@ -1,8 +1,14 @@
+from inspect import isfunction
+
 from hstest import PlottingTest, WrongAnswer, dynamic_test, TestedProgram, CheckResult
 
 dict_data_CORRECT = {
     "countries": ['other countries', 'usa', 'germany', 'uk', 'france', 'russia', 'austria', 'canada', 'poland'],
-    "count": [343, 237, 98, 91, 43, 32, 26, 26, 25]
+    "count": [343, 237, 98, 91, 43, 32, 26, 26, 25],
+    "colors": ['blue', 'orange', 'red', 'yellow', 'green', 'pink', 'brown', 'cyan', 'purple'],
+    "autopct": "fsdf",
+    "counterclock": True,
+    "explode": [0, 0, 0, 0.08, 0.08, 0.08, 0.08, 0.08, 0.08],
 }
 
 
@@ -40,8 +46,27 @@ class Pie(PlottingTest):
             raise WrongAnswer(f"The list of the countries presented in the pie plot is wrong.\n"
                               f"Expected:\n{dict_data_CORRECT['countries']}\n"
                               f"Found: \n{graph_data_countries}")
+
         if not set(graph_data_count) == set(dict_data_CORRECT["count"]):
             raise WrongAnswer("Distribution of countries displayed in the pie plot is wrong")
+
+        if not all_figures[0].kwargs.get("colors"):
+            raise WrongAnswer("Please define 'colors' parameter!")
+        elif not set(all_figures[0].kwargs.get("colors")) == set(dict_data_CORRECT["colors"]):
+            raise WrongAnswer("The 'colors' in the pie plot are wrong!")
+
+        if not all_figures[0].kwargs.get("autopct"):
+            raise WrongAnswer("The 'autopct' parameter is not defined!")
+        elif not isfunction(all_figures[0].kwargs.get("autopct")):
+            raise WrongAnswer("The 'autopct' parameter is not a function!")
+
+        if not all_figures[0].kwargs.get("counterclock"):
+            raise WrongAnswer("The 'counterclock' parameter is not defined or wrong!")
+
+        if not all_figures[0].kwargs.get("explode"):
+            raise WrongAnswer("Please define 'explode' parameter!")
+        elif not set(all_figures[0].kwargs.get("explode")) == set(dict_data_CORRECT["explode"]):
+            raise WrongAnswer("The 'explode' values in the pie plot are wrong!")
 
         return CheckResult.correct()
 
