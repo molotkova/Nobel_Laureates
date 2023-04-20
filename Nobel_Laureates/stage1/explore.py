@@ -3,8 +3,6 @@ import os
 import requests
 import sys
 
-# write your code here
-
 
 if __name__ == '__main__':
     if not os.path.exists('../Data'):
